@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project name="SimpleJavaGDF" default="dist" basedir=".">
+    <description>SimpleJavaGDF Ant build file.</description>
+
+    <!-- Set global properties for this build. -->
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist"  location="dist"/>
+    <property name="jars"  location="lib"/>
+
+    <!-- Set the class path. -->
+    <fileset id="jar.files" dir="${jars}">
+        <include name="*.jar"/>
+    </fileset>
+    <path id="class.path">
+        <pathelement path="${webinf.classes.dir}" />
+        <fileset refid="jar.files" />
+    </path>
+
+    <!-- Initlize the build. -->
+    <target name="init">
+        <tstamp/>
+        <mkdir dir="${build}"/>
+    </target>
+
+    <!-- Compile the build. -->
+    <target name="compile" depends="init" description="Compiles Source">
+        <property name="ant.build.javac.source" value="1.6"/>
+        <property name="ant.build.javac.target" value="1.6"/>
+        <javac srcdir="${src}" destdir="${build}" includeantruntime="false">
+            <classpath refid="class.path"/>
+        </javac>
+    </target>
+
+    <!-- Create the distribution. -->
+    <target name="dist" depends="compile" description="Generates Distribution">
+        <mkdir dir="${dist}"/>
+        <jar jarfile="${dist}/SimpleJavaGDF.jar" basedir="${build}"/>
+    </target>
+
+    <!-- Clean up. -->
+    <target name="clean" description="Clean up">
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>   
+</project>
