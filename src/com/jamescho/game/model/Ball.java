@@ -65,7 +65,7 @@ public class Ball {
 	}
 
 	/**
-	 * <p>Updates the rectangles boundry.</p>
+	 * <p>Updates the rectangles boundary.</p>
 	 */
 	private void updateRect() {
 		rect.setBounds(this.x, this.y, this.width, this.height);
@@ -104,5 +104,48 @@ public class Ball {
 		this.y = 200;
 		this.velX = 5;
 		this.velY = RandomNumberGenerator.getRandIntBetween(-4, 5);
+	}
+
+	/**
+	 * <p>Get the x position.</p>
+	 * 
+	 * @return int that is the x position.
+	 */
+	public int getX() {
+		return this.x;
+	}
+
+	/**
+	 * <p>Get the y position.</p>
+	 * 
+	 * @return int that is the y position.
+	 */
+	public int getY() {
+		return this.y;
+	}
+
+	/**
+	 * <p>Get the width.</p>
+	 * 
+	 * @return int that is the width.
+	 */
+	public int getWidth() {
+		return this.width;
+	}
+	/**
+	 * <p>Get the height.</p>
+	 * 
+	 * @return int that is the height.
+	 */
+	public int getHeight() {
+		return this.height;
+	}
+	/**
+	 * <p>Get the rectangle.</p>
+	 * 
+	 * @return Rectangle that is the bounding rectangle.
+	 */
+	public Rectangle getRect() {
+		return this.rect;
 	}
 }

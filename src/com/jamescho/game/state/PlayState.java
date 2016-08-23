@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 
 import com.jamescho.game.main.GameMain;
 import com.jamescho.game.main.Resources;
+import com.jamescho.game.model.Ball;
 import com.jamescho.game.model.Paddle;
 
 public class PlayState extends State {
@@ -19,18 +20,39 @@ public class PlayState extends State {
 	private int scoreLeft = 0;
 	private int scoreRight = 0;
 	private Font scoreFont;
+	private Ball ball;
+	private static final int BALL_DIAMETER = 20;
 
 	@Override
 	public void init() {
 		this.paddleLeft = new Paddle(0, 195, PlayState.PADDLE_WIDTH, PlayState.PADDLE_HEIGHT);
 		this.paddleRight = new Paddle(785, 195, PlayState.PADDLE_WIDTH, PlayState.PADDLE_HEIGHT);
 		this.scoreFont = new Font("SansSerif", Font.BOLD, 25);
+		this.ball = new Ball(300, 200, PlayState.BALL_DIAMETER, PlayState.BALL_DIAMETER);
 	}
 
 	@Override
 	public void update() {
 		paddleLeft.update();
 		paddleRight.update();
+		ball.update();
+
+		if (this.ballCollides(this.paddleLeft)) {
+			this.scoreLeft++;
+			this.ball.onCollideWith(this.paddleLeft);
+			Resources.hit.play();
+		} else if (this.ballCollides(this.paddleRight)) {
+			this.scoreRight++;
+			this.ball.onCollideWith(this.paddleRight);
+			Resources.hit.play();
+		} else if (this.ball.isDead()) {
+			if (this.ball.getX() < 0) {
+				this.scoreLeft--;
+			} else {
+				this.scoreRight--;
+			}
+			this.ball.reset();
+		}
 	}
 
 	@Override
@@ -51,6 +73,9 @@ public class PlayState extends State {
 				this.paddleLeft.getWidth(), this.paddleLeft.getHeight());
 		g.fillRect(this.paddleRight.getX(), this.paddleRight.getY(),
 				this.paddleRight.getWidth(), this.paddleRight.getHeight());
+
+		// Draw the ball.
+		g.drawImage(Resources.ball, this.ball.getX(), this.ball.getY(), null);
 
 		// Draw UI.
 		g.setFont(this.scoreFont);
@@ -89,4 +114,14 @@ public class PlayState extends State {
 			
 	}
 
+	/**
+	 * <p>Checks for ball/paddle collision.</p>
+	 * 
+	 * @param Paddle to check against.
+	 * 
+	 * @return boolean TRUE if collision, FALSE otherwise.
+	 */
+	private boolean ballCollides(Paddle inP) {
+		return ball.getRect().intersects(inP.getRect());
+	}
 }

@@ -21,6 +21,7 @@ public class Resources {
 	public static AudioClip bounce;
 	public static Color darkBlue;
 	public static Color darkRed;
+	public static BufferedImage ball;
 
 	/**
 	 * <p>Method that loads all game resources.</p>
@@ -29,6 +30,7 @@ public class Resources {
 		welcome = loadImage("welcome.png");
 		iconImage = loadImage("iconimage.png");
 		line = loadImage("line.png");
+		ball = loadImage("ball.png");
 		hit = loadSound("hit.wav");
 		bounce = loadSound("bounce.wav");
 		darkBlue = new Color(25, 83, 105); // Accepts RGB values.
