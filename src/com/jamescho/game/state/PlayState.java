@@ -46,10 +46,16 @@ public class PlayState extends State {
 			this.ball.onCollideWith(this.paddleRight);
 			Resources.hit.play();
 		} else if (this.ball.isDead()) {
+			Resources.dead.play();
 			if (this.ball.getX() < 0) {
 				this.scoreLeft--;
 			} else {
 				this.scoreRight--;
+			}
+			try {
+				Thread.sleep(3000);
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 			this.ball.reset();
 		}

@@ -18,6 +18,7 @@ public class Resources {
 	public static BufferedImage iconImage;
 	public static BufferedImage line;
 	public static AudioClip hit;
+	public static AudioClip dead;
 	public static AudioClip bounce;
 	public static Color darkBlue;
 	public static Color darkRed;
@@ -32,6 +33,7 @@ public class Resources {
 		line = loadImage("line.png");
 		ball = loadImage("ball.png");
 		hit = loadSound("hit.wav");
+		dead = loadSound("hesdeadj.wav");
 		bounce = loadSound("bounce.wav");
 		darkBlue = new Color(25, 83, 105); // Accepts RGB values.
 		darkRed = new Color(105, 13, 13); // Accepts RGB values.
