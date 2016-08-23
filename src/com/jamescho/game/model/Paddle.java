@@ -2,6 +2,8 @@ package com.jamescho.game.model;
 
 import java.awt.Rectangle;
 
+import com.jamescho.game.main.GameMain;
+
 /*
  * <p>Paddle class to handle paddles for the game.</p>
  */
@@ -37,6 +39,13 @@ public class Paddle {
 	 */
 	public void update() {
 		this.y += this.velY;
+		
+		if (this.y < 0) {
+			this.y = 0;
+		} else if (this.y + height > GameMain.GAME_HEIGHT) {
+			y = GameMain.GAME_HEIGHT - height;
+		}
+
 		updateRect();
 	}
 

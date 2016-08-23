@@ -24,8 +24,8 @@ public class PlayState extends State {
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		paddleLeft.update();
+		paddleRight.update();
 	}
 
 	@Override
@@ -56,14 +56,27 @@ public class PlayState extends State {
 
 	@Override
 	public void onKeyPress(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			paddleRight.accelUp();
+		} else if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			paddleRight.accelDown();
+		} else if (e.getKeyCode() == KeyEvent.VK_W) {
+			paddleLeft.accelUp();
+		} else if (e.getKeyCode() == KeyEvent.VK_S) {
+			paddleLeft.accelDown();
+		}
 	}
 
 	@Override
 	public void onKeyRelease(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (e.getKeyCode() == KeyEvent.VK_UP ||
+				e.getKeyCode() == KeyEvent.VK_DOWN) {
+			paddleRight.stop();
+		} else if (e.getKeyCode() == KeyEvent.VK_W ||
+				e.getKeyCode() == KeyEvent.VK_S) {
+			paddleLeft.stop();
+		}
+			
 	}
 
 }
