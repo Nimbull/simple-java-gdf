@@ -1,5 +1,7 @@
 package com.jamescho.game.state;
+
 //Imports.
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -14,6 +16,7 @@ public class EndGameState extends State {
 	// Private members.
 	private int leftScore;
 	private int rightScore;
+	private Font scoreFont;
 
 	/**
 	 * <p>Sets the scores.</p>
@@ -32,7 +35,7 @@ public class EndGameState extends State {
 	 */
 	@Override
 	public void init() {
-		// Do nothing.
+		this.scoreFont = new Font("SansSerif", Font.BOLD, 25);
 	}
 
 	/*
@@ -50,6 +53,12 @@ public class EndGameState extends State {
 	 */
 	@Override
 	public void render(Graphics g) {
+		// Draw background.
+		g.setColor(Resources.darkBlue);
+		g.fillRect(0, 0, GameMain.GAME_WIDTH, GameMain.GAME_HEIGHT);
+
+		// Report scores.
+		g.setFont(this.scoreFont);
 		g.drawString("Player Left - " + this.leftScore + " Player Right - " +
 				this.rightScore, GameMain.GAME_WIDTH / 5,
 				(GameMain.GAME_HEIGHT / 4));
