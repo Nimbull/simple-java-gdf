@@ -1,16 +1,31 @@
 package com.jamescho.game.state;
-
-// Imports.
+//Imports.
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import com.jamescho.game.main.GameMain;
 import com.jamescho.game.main.Resources;
 
 /* 
- * <p>MenuState.java - The game menu state implementation class.</p>
- */
-public class MenuState extends State {
+* <p>EndGame.java - The game menu state implementation class.</p>
+*/
+public class EndGameState extends State {
+	// Private members.
+	private int leftScore;
+	private int rightScore;
+
+	/**
+	 * <p>Sets the scores.</p>
+	 * 
+	 * @param int left score.
+	 * @param int right score.
+	 */
+	public void setScores(int inL, int inR) {
+		this.leftScore = inL;
+		this.rightScore = inR;
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * @see com.jamescho.game.state.State#init()
@@ -35,8 +50,9 @@ public class MenuState extends State {
 	 */
 	@Override
 	public void render(Graphics g) {
-		g.drawImage(Resources.welcome, 0, 0, null);
-		
+		g.drawString("Player Left - " + this.leftScore + " Player Right - " +
+				this.rightScore, GameMain.GAME_WIDTH / 5,
+				(GameMain.GAME_HEIGHT / 4));
 	}
 
 	/*
@@ -45,7 +61,7 @@ public class MenuState extends State {
 	 */
 	@Override
 	public void onClick(MouseEvent e) {
-		setCurrentState(new PlayState());
+		setCurrentState(new MenuState());
 	}
 
 	/*

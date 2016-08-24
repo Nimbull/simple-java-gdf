@@ -21,8 +21,12 @@ public class PlayState extends State {
 	private int scoreRight = 0;
 	private Font scoreFont;
 	private Ball ball;
-	private static final int BALL_DIAMETER = 20;
+	private static final int BALL_DIAMETER = 40;
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.jamescho.game.state.State#init()
+	 */
 	@Override
 	public void init() {
 		this.paddleLeft = new Paddle(0, 195, PlayState.PADDLE_WIDTH, PlayState.PADDLE_HEIGHT);
@@ -31,12 +35,21 @@ public class PlayState extends State {
 		this.ball = new Ball(300, 200, PlayState.BALL_DIAMETER, PlayState.BALL_DIAMETER);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.jamescho.game.state.State#update()
+	 */
 	@Override
 	public void update() {
+		// Variables.
+		EndGameState state = null;
+
+		// Updates.
 		paddleLeft.update();
 		paddleRight.update();
 		ball.update();
 
+		// Ball collision detection.
 		if (this.ballCollides(this.paddleLeft)) {
 			this.scoreLeft++;
 			this.ball.onCollideWith(this.paddleLeft);
@@ -59,8 +72,20 @@ public class PlayState extends State {
 			}
 			this.ball.reset();
 		}
+
+		// Win situation?
+		if (this.scoreLeft == 15 || this.scoreRight == 15) {
+			// Yep.
+			state = new EndGameState();
+			state.setScores(this.scoreLeft, this.scoreRight);
+			setCurrentState(state);
+		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.jamescho.game.state.State#render(java.awt.Graphics)
+	 */
 	@Override
 	public void render(Graphics g) {
 		// Draw background.
@@ -89,12 +114,19 @@ public class PlayState extends State {
 		g.drawString(new Integer(this.scoreRight).toString(), 435, 40);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.jamescho.game.state.State#onClick(java.awt.event.MouseEvent)
+	 */
 	@Override
 	public void onClick(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		// Do nothing.
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.jamescho.game.state.State#onKeyPress(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void onKeyPress(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -108,6 +140,10 @@ public class PlayState extends State {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see com.jamescho.game.state.State#onKeyRelease(java.awt.event.KeyEvent)
+	 */
 	@Override
 	public void onKeyRelease(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_UP ||

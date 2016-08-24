@@ -31,7 +31,7 @@ public class Resources {
 		welcome = loadImage("welcome.png");
 		iconImage = loadImage("iconimage.png");
 		line = loadImage("line.png");
-		ball = loadImage("ball.png");
+		ball = loadImage("ball2.png");
 		hit = loadSound("hit.wav");
 		dead = loadSound("hesdeadj.wav");
 		bounce = loadSound("bounce.wav");
