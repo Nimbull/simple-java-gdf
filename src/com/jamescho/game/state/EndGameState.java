@@ -1,5 +1,6 @@
 package com.jamescho.game.state;
 
+import java.awt.Color;
 //Imports.
 import java.awt.Font;
 import java.awt.Graphics;
@@ -53,15 +54,28 @@ public class EndGameState extends State {
 	 */
 	@Override
 	public void render(Graphics g) {
+		String winner = null;
+
 		// Draw background.
-		g.setColor(Resources.darkBlue);
-		g.fillRect(0, 0, GameMain.GAME_WIDTH, GameMain.GAME_HEIGHT);
+		g.drawImage(Resources.gameOver, 0, 0, null);
 
 		// Report scores.
+		g.setColor(Color.WHITE);
 		g.setFont(this.scoreFont);
-		g.drawString("Player Left - " + this.leftScore + " Player Right - " +
-				this.rightScore, GameMain.GAME_WIDTH / 5,
+		g.drawString("Player Left - " + this.leftScore,
+				new Double(GameMain.GAME_WIDTH * 0.55).intValue(),
 				(GameMain.GAME_HEIGHT / 4));
+		g.drawString("Player Right - " + this.rightScore,
+				new Double(GameMain.GAME_WIDTH * 0.55).intValue(),
+				(GameMain.GAME_HEIGHT / 4) + 30);
+		if (this.rightScore > this.leftScore) {
+			winner = "Right";
+		} else {
+			winner = "Left";
+		}
+		g.drawString("Player " + winner + " wins!",
+				new Double(GameMain.GAME_WIDTH * 0.55).intValue(),
+				(GameMain.GAME_HEIGHT / 4) + 60);
 	}
 
 	/*

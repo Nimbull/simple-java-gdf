@@ -23,6 +23,7 @@ public class Resources {
 	public static Color darkBlue;
 	public static Color darkRed;
 	public static BufferedImage ball;
+	public static BufferedImage gameOver;
 
 	/**
 	 * <p>Method that loads all game resources.</p>
@@ -30,6 +31,7 @@ public class Resources {
 	public static void load() {
 		welcome = loadImage("welcome.png");
 		iconImage = loadImage("iconimage.png");
+		gameOver = loadImage("gameover.png");
 		line = loadImage("line.png");
 		ball = loadImage("ball2.png");
 		hit = loadSound("hit.wav");

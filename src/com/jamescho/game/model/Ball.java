@@ -102,7 +102,11 @@ public class Ball {
 	public void reset() {
 		this.x = 300;
 		this.y = 200;
-		this.velX = 5;
+		if (RandomNumberGenerator.getRandInt(100) > 50) {
+			this.velX = -5;
+		} else {
+			this.velX = 5;
+		}
 		this.velY = RandomNumberGenerator.getRandIntBetween(-4, 5);
 	}
 
