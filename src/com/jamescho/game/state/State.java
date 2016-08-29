@@ -18,8 +18,10 @@ public abstract class State {
 
 	/**
 	 * <p>Update method.</p>
+	 * 
+	 * @param float that is the delta value.
 	 */
-	public abstract void update();
+	public abstract void update(float inDelta);
 
 	/**
 	 * <p>Render method.</p>
