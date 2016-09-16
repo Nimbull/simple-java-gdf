@@ -8,7 +8,7 @@ import javax.swing.JFrame;
  */
 public class GameMain {
 	// Private members.
-	private static final String GAME_TITLE = "Java Game Development Framework";
+	private static final String GAME_TITLE = "Ellio (Chapter 6)";
 	public static final int GAME_WIDTH = 800;
 	public static final int GAME_HEIGHT = 450;
 	public static Game sGame;
