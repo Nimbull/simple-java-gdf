@@ -54,11 +54,11 @@ public class Resources {
 		duck = loadImage("duck.png");
 		grass = loadImage("grass.png");
 		jump = loadImage("jump.png");
-		run1 = loadImage("run1.jpg");
-		run2 = loadImage("run2.jpg");
-		run3 = loadImage("run3.jpg");
-		run4 = loadImage("run4.jpg");
-		run5 = loadImage("run5.jpg");
+		run1 = loadImage("run_anim1.png");
+		run2 = loadImage("run_anim2.png");
+		run3 = loadImage("run_anim3.png");
+		run4 = loadImage("run_anim4.png");
+		run5 = loadImage("run_anim5.png");
 		selector = loadImage("selector.png");
 		hit = loadSound("hit.wav");
 		onJump = loadSound("onjump.wav");
