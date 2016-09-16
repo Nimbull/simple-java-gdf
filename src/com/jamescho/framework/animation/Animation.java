@@ -16,7 +16,7 @@ public class Animation {
 	/**
 	 * <p>Constructor.</p>
 	 * 
-	 * @param Frame... is an array of animation frames to use.
+	 * @param Frame... is one or more frames to use.
 	 */
 	public Animation(Frame... inFrames) {
 		// Variables.
