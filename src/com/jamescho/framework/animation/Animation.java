@@ -18,7 +18,7 @@ public class Animation {
 	 * 
 	 * @param Frame[] is an array of animation frames to use.
 	 */
-	public Animation(Frame[] inFrames) {
+	public Animation(Frame... inFrames) {
 		// Variables.
 		int c = 0;
 		Frame f = null;
@@ -27,7 +27,7 @@ public class Animation {
 		this.currentFrameIndex = 0;
 		this.totalDuration = 0;
 		this.currentTime = 0;
-		this.frames = inFrames.clone();
+		this.frames = inFrames;
 		this.frameEndTimes = new double[this.frames.length];
 
 		// Get durations.
@@ -63,7 +63,27 @@ public class Animation {
 		this.currentTime %= this.totalDuration; // Equal to cT = cT % tD
 	}
 
+	/**
+	 * <p>Draw the current animation frame.</p>
+	 * 
+	 * @param Graphics to draw by.
+	 * @param int X location to draw.
+	 * @param int Y location to draw.
+	 */
 	public synchronized void render(Graphics inG, int inX, int inY) {
 		inG.drawImage(this.frames[this.currentFrameIndex].getImage(), inX, inY, null);
+	}
+
+	/**
+	 * <p>Draw the current animation frame with width and height.</p>
+	 * 
+	 * @param Graphics to draw by.
+	 * @param int X location to draw.
+	 * @param int Y location to draw.
+	 * @param int width to use.
+	 * @param int height to use.
+	 */
+	public synchronized void render(Graphics inG, int inX, int inY, int inWidth, int inHeight) {
+		inG.drawImage(this.frames[this.currentFrameIndex].getImage(), inX, inY, inWidth, inHeight, null);
 	}
 }
