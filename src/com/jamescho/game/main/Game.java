@@ -36,10 +36,10 @@ public class Game extends JPanel implements Runnable {
 	public Game(int inW, int inH) {
 		this.gameWidth = inW;
 		this.gameHeight = inH;
-		setPreferredSize(new Dimension(this.gameWidth, this.gameHeight));
-		setBackground(Color.BLACK);
-		setFocusable(true);
-		requestFocus();
+		this.setPreferredSize(new Dimension(this.gameWidth, this.gameHeight));
+		this.setBackground(Color.BLACK);
+		this.setFocusable(true);
+		this.requestFocus();
 	}
 
 	/**
@@ -50,8 +50,8 @@ public class Game extends JPanel implements Runnable {
 	public void setCurrentState(State newState) {
 		System.gc();
 		newState.init();
-		currentState = newState;
-		inputHandler.setCurrentState(currentState);
+		this.currentState = newState;
+		this.inputHandler.setCurrentState(this.currentState);
 	}
 
 	/*
@@ -61,18 +61,18 @@ public class Game extends JPanel implements Runnable {
 	@Override
 	public void addNotify() {
 		super.addNotify();
-		initInput();
-		setCurrentState(new LoadState());
-		initGame();
+		this.initInput();
+		this.setCurrentState(new LoadState());
+		this.initGame();
 	}
 
 	/**
 	 * <p>Initialize the game.</p>
 	 */
 	private void initGame() {
-		running = true;
-		gameThread = new Thread(this, "Game Thread");
-		gameThread.start();
+		this.running = true;
+		this.gameThread = new Thread(this, "Game Thread");
+		this.gameThread.start();
 	}
 
 	/*
@@ -81,13 +81,23 @@ public class Game extends JPanel implements Runnable {
 	 */
 	@Override
 	public void run() {
-		while (running) {
-			currentState.update();
-			prepareGameImage();
-			currentState.render(gameImage.getGraphics());
-			repaint();
+		// Variables.
+		long updateDurationMillis = 0;
+		long sleepDurationMillis = 0;
+		long beforeUpdateRender = 0;
+		long deltaMillis = 0;
+
+		while (this.running) {
+			beforeUpdateRender = System.nanoTime();
+			deltaMillis = updateDurationMillis + sleepDurationMillis;
+
+			this.updateAndRender(deltaMillis);
+
+			updateDurationMillis = (System.nanoTime() - beforeUpdateRender) /
+					1000000L;
+			sleepDurationMillis = Math.max(2, 17 - updateDurationMillis);
 			try {
-				Thread.sleep(14);
+				Thread.sleep(sleepDurationMillis);
 			}
 			catch (InterruptedException e) {
 				e.printStackTrace();
@@ -98,13 +108,28 @@ public class Game extends JPanel implements Runnable {
 	}
 
 	/**
+	 * <p>Updates and renders the game display.</p>
+	 * 
+	 * @param long that is the delta millisecond value.
+	 */
+	private void updateAndRender(long inDelMilis) {
+		this.currentState.update(inDelMilis / 1000f);
+		this.prepareGameImage();
+		this.currentState.render(this.gameImage.getGraphics());
+		this.renderGameImage(this.getGraphics());
+	}
+
+	/**
 	 * <p>Prepare the game grid.</p>
 	 */
 	private void prepareGameImage() {
+		// Variables.
+		Graphics g = null;
+
 		if(gameImage == null) {
 			gameImage = createImage(gameWidth, gameHeight);
 		}
-		Graphics g = gameImage.getGraphics();
+		g = gameImage.getGraphics();
 		g.clearRect(0, 0, gameWidth, gameHeight);
 	}
 
@@ -112,28 +137,27 @@ public class Game extends JPanel implements Runnable {
 	 * <p>Exit routine to leave the game.</p>
 	 */
 	public void exit() {
-		running = false;
+		this.running = false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
+	/**
+	 * <p>Renders a game image.</p>
+	 * 
+	 * @param Graphics is the grpahics object used to render.
 	 */
-	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		if (gameImage == null) {
-			return;
+	private void renderGameImage(Graphics g) {
+		if (this.gameImage != null) {
+			g.drawImage(gameImage, 0, 0, null);
 		}
-		g.drawImage(gameImage, 0, 0, null);
+		g.dispose();
 	}
 
 	/**
 	 * <p>Initialize input handlers.</p>
 	 */
 	private void initInput() {
-		inputHandler = new InputHandler();
-		addKeyListener(inputHandler);
-		addMouseListener(inputHandler);
+		this.inputHandler = new InputHandler();
+		this.addKeyListener(inputHandler);
+		this.addMouseListener(inputHandler);
 	}
 }

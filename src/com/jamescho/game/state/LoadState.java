@@ -26,7 +26,7 @@ public class LoadState extends State {
 	 * @see com.jamescho.game.state.State#update()
 	 */
 	@Override
-	public void update() {
+	public void update(float inDelta) {
 		setCurrentState(new MenuState());
 	}
 
